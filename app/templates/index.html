@@ -204,13 +204,14 @@
                                                                     </a>
                                                                     <div class="auto-actions">
                                                                         <a href="/auto_detail/{{ auto.id }}"><i class="material-icons"></i> <span class="tool-tip">Подробнее</span></a>
-                                                                        <a href="#"><i class="material-icons"></i> <span class="tool-tip">Арендовать</span></a>
+                                                                        <a href="/rent_auto/{{ auto.id }}"><i class="material-icons"></i> <span class="tool-tip">Арендовать</span></a>
+                                      
                                                                     </div>
                                                                 </div>
                                                                 <div class="auto-content">
-                                                                    <h6 class="auto-title"><a href="#">{{ auto.title }}</a></h6>
+                                                                    <h6 class="auto-title"><a href="/auto_detail/{{ auto.id }}">{{ auto.title }}</a></h6>
                                                                     <div class="auto-price">
-                                                                        <span class="new-price">{{ auto.price }} Р/мин</span>
+                                                                        <span class="new-price">{{ auto.price }} p/мин</span>
                                                                         <div class="auto-description">
                                                                         <span class="new-descriprion">{{ auto.description }} </span>
                                                                         </div>

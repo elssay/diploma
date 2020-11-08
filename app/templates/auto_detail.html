@@ -418,25 +418,22 @@
                                                         <table class="table table-hover">
                                                             <thead>
                                                                 <tr>
-                                                                    <th scope="col">#</th>
-                                                                    <th scope="col">Дата начала аренды</th>
-                                                                    <th scope="col">Дата завершения аренды</th>
+                                                                    <th scope="col"># бронирования</th>
+                                                                    <th scope="col">Начало аренды</th>
+                                                                    <th scope="col">Окончание аренды</th>
                                                                     <th scope="col">Общая стоимость аренды</th>
                                                                 </tr>
                                                             </thead>
+                                                           
                                                             <tbody>
+                                                                {% for rent in rentlog %}
                                                                 <tr>
-                                                                    <th scope="row">1</th>
-                                                                    <td>{{ date_and_time_rent_bigin }}</td>
-                                                                    <td>{{ date_and_time_rent_end }}</td>
-                                                                    <td>{{ total_cost_of_rent }}</td>
+                                                                    <th scope="row">{{ rent.id }}</th>
+                                                                    <td>{{ rent.rented }}</td>
+                                                                    <td>{{ rent.end_of_rent }}</td>
+                                                                    <td>{{ rent.rentprice }} p</td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <th scope="row">2</th>
-                                                                    <td>{{ date_and_time_rent_bigin }}</td>
-                                                                    <td>{{ date_and_time_rent_end }}</td>
-                                                                    <td>{{ total_cost_of_rent }}</td>
-                                                                </tr>
+                                                                {% endfor %}
                                                             </tbody>
                                                         </table>
                                                     </div>

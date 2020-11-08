@@ -1,6 +1,7 @@
 from app import app, db
 from flask import render_template, request
-from app.models import Auto
+from datetime import datetime
+from app.models import Auto, Rentlog
 
 
 @app.route('/')
@@ -45,7 +46,7 @@ def create_auto():
     
 
         # Добавляем авто в базу данных
-        db.session.add(Auto(title=auto_title, price=auto_price, description = auto_description, transmission = auto_transmission, status = True, img_url=request.form['img_url']))
+        db.session.add(Auto(title=auto_title, autprice=auto_price, description = auto_description, transmission = auto_transmission, astatus = True, img_url=request.form['img_url'], total_price = 0, atotal_time = 0, rent_count = 0))
 
         # сохраняем изменения в базе
         db.session.commit()
@@ -62,8 +63,6 @@ def create_auto():
     
     elif request.method == 'GET':
 
-        # Пришел запрос с методом GET - пользователь просто открыл в браузере страницу по адресу http://127.0.0.1:5000/create_product
-        # В этом случае просто передаем в контекст имя метода
         context = {
             'method': 'GET',
         }
@@ -74,18 +73,19 @@ def create_auto():
 def auto_detail(auto_id):
     
     auto = Auto.query.get(auto_id)
-
-
     context = None
-    free = ''
-    button_name = ''
-    if auto.status == False:
-        free = 'Занят'
+    free = 'свободен'
+    button_name = 'Арендовать'
+    
+    if auto.astatus == False:
+        free = 'занят'
         button_name = 'Освободить'
-    elif auto.status == True:
+        #agelist.append(auto.auend_of_rent.strftime("%Y-%m-%d-%H.%M.%S"))
+        
+    elif auto.astatus == True:
         free = 'свободен'
         button_name = 'Арендовать'
-   
+        #agelist.append(auto.aurented.strftime("%Y-%m-%d-%H.%M.%S"))
     if request.method == 'POST':
 
         new_title = request.form['new_title']
@@ -93,12 +93,13 @@ def auto_detail(auto_id):
         new_description = request.form['new_description']
         auto_transmission_check = request.form['new_transmission'] 
         new_img_url = request.form['new_img_url']
+        
 
         if new_title:
             auto.title = request.form['new_title']
         
         if new_price:
-            auto.price = request.form['new_price']
+            auto.aprice = request.form['new_price']
         
         if new_description:
             auto.description = request.form['new_description']
@@ -111,55 +112,70 @@ def auto_detail(auto_id):
               
         if new_img_url:
             auto.img_url = request.form['new_img_url']
-
-        
-        #db.session.commit() 
+        db.session.commit() 
 
     
 
+    rentlog = Rentlog.query.filter_by(auto_id=auto.id).all()
+        
+    
+
     context = {
-        'method': 'POST',
         'id': auto.id,
         'title': auto.title,
-        'price': auto.price,
+        'price': auto.autprice,
         'description': auto.description,
         'img_url': auto.img_url,
         'status': free,
         'button_name': button_name,
+        'rentlog': rentlog,
     }
-    db.session.commit() 
+    #db.session.commit() 
 
 
     return render_template('auto_detail.html', **context)
 
 
-@app.route('/rent_auto/<int:auto_id>', methods=['POST'])
+@app.route('/rent_auto/<int:auto_id>', methods=['POST', 'GET'])
 def auto_rent(auto_id):
     
     auto = Auto.query.get(auto_id)
-
+    
     context = None
     free = ''
-    new_status = not auto.status
+    
+    if request.method == 'POST':
+        new_status = not auto.astatus
+        if new_status == False:
+            free = 'занят'
+            auto.aurented = datetime.now()
+            #auto.auend_of_rent = 
+            #l = auto.aurented.strftime("%Y-%m-%d-%H.%M.%S")
+        elif new_status == True:
+            free = 'свободен'
+            auto.auend_of_rent = datetime.now()
+            
 
-    if new_status == False:
-        free = 'занят'
-        
-    elif new_status == True:
-        free = 'свободен'
-        
-    auto.status = new_status
-    #db.session.commit()
+        auto.astatus = new_status
+        auto.rent_count+=1
+        age_seconds = (auto.auend_of_rent - auto.aurented).seconds
+        age = divmod(age_seconds, 60)
+        total_price = age[0] * auto.autprice
+        auto.atotal_time += age[0]
+        auto.total_price += total_price
+
+        db.session.add(Rentlog(auto_id=auto.id, rented = auto.aurented.strftime("%Y-%m-%d-%H.%M.%S"), end_of_rent = auto.auend_of_rent, rentprice=total_price))
+        db.session.commit()
 
     context = {
         'id': auto.id,
         'title': auto.title,
         'status': free,
-        'auto_status': auto.status,
+        'auto_status': auto.astatus,
+        'arented': auto.arented,
+        'aend_of_rent': auto.aend_of_rent,
+        'time': auto.arented,
     }
-
-    db.session.commit()
-
 
     return render_template('rent_auto.html', **context)
 
@@ -169,20 +185,42 @@ def auto_rent(auto_id):
 def del_auto(auto_id):
     
     auto = Auto.query.get(auto_id)
+    
 
     context = {
-        'method': 'POST',
-            'id': auto.id,
-            'title': auto.title,
-            'price': auto.price,
-            'description': auto.description,
-            'status': auto.status,
-            'transmission': auto.transmission,
-    }
+        'id': auto.id,
+        'title': auto.title,
+        'price': auto.autprice,
+        'description': auto.description,
+        'astatus': auto.status,
+        'status': auto.astatus,
+        'transmission': auto.transmission,
+        'id': auto.id,
+        'arented': auto.aurented,
+        'aend_of_rent': auto.auend_of_rent,
+        }
     
     db.session.delete(auto)
     db.session.commit()
 
     return render_template('del_auto.html', **context)
 
+
+@app.route('/rental_log/', methods=['GET'])
+def rental_log():
+    
+    auto_list = Auto.query.all()
+    #auto = Auto.query.get(auto_id)
+
+  
+    # Полученные наборы передаем в контекст
+    context = {
+        # 'title': auto.title,
+        'auto_list': auto_list,
+        # 'count':auto.rent_count,
+        # 'total_time': auto.total_time,
+        # 'total_price': auto.total_price,
+    }
+
+    return render_template('rental_log.html', **context)
 
