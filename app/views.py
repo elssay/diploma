@@ -149,7 +149,7 @@ def auto_rent(auto_id):
         if new_status == False:
             free = 'занят'
             auto.aurented = datetime.now()
-            #auto.auend_of_rent = 
+            #auto.auend_of_rent = None
             #l = auto.aurented.strftime("%Y-%m-%d-%H.%M.%S")
         elif new_status == True:
             free = 'свободен'
@@ -164,7 +164,7 @@ def auto_rent(auto_id):
         auto.atotal_time += age[0]
         auto.total_price += total_price
 
-        db.session.add(Rentlog(auto_id=auto.id, rented = auto.aurented.strftime("%Y-%m-%d-%H.%M.%S"), end_of_rent = auto.auend_of_rent, rentprice=total_price))
+        db.session.add(Rentlog(auto_id=auto.id, rented = auto.aurented, end_of_rent = auto.auend_of_rent, rentprice=total_price))
         db.session.commit()
 
     context = {
