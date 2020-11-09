@@ -30,7 +30,6 @@ def create_auto():
         # Получаем название товара - это значение поля input с атрибутом name="title"
         auto_title = request.form['title']
 
-        # Получаем цену товара - это значение поля input с атрибутом name="price"
         auto_price = request.form['price']
 
         auto_description = request.form['description']
@@ -46,7 +45,7 @@ def create_auto():
     
 
         # Добавляем авто в базу данных
-        db.session.add(Auto(title=auto_title, autprice=auto_price, description = auto_description, transmission = auto_transmission, astatus = True, img_url=request.form['img_url'], total_price = 0, atotal_time = 0, rent_count = 0))
+        db.session.add(Auto(title=auto_title, autprice=auto_price, description = auto_description, transmission = auto_transmission, astatus = True, img_url=request.form['img_url'], img_url_2=request.form['img_url2'], img_url_3=request.form['img_url3'], img_url_4=request.form['img_url4'], total_price = 0, atotal_time = 0, rent_count = 0))
 
         # сохраняем изменения в базе
         db.session.commit()
@@ -80,12 +79,12 @@ def auto_detail(auto_id):
     if auto.astatus == False:
         free = 'занят'
         button_name = 'Освободить'
-        #agelist.append(auto.auend_of_rent.strftime("%Y-%m-%d-%H.%M.%S"))
+        
         
     elif auto.astatus == True:
         free = 'свободен'
         button_name = 'Арендовать'
-        #agelist.append(auto.aurented.strftime("%Y-%m-%d-%H.%M.%S"))
+        
     if request.method == 'POST':
 
         new_title = request.form['new_title']
@@ -93,13 +92,16 @@ def auto_detail(auto_id):
         new_description = request.form['new_description']
         auto_transmission_check = request.form['new_transmission'] 
         new_img_url = request.form['new_img_url']
+        new_img_url_2 = request.form['new_img_url2']
+        new_img_url_3 = request.form['new_img_url3']
+        new_img_url_4 = request.form['new_img_url4']
         
 
         if new_title:
             auto.title = request.form['new_title']
         
         if new_price:
-            auto.aprice = request.form['new_price']
+            auto.autprice = request.form['new_price']
         
         if new_description:
             auto.description = request.form['new_description']
@@ -112,6 +114,12 @@ def auto_detail(auto_id):
               
         if new_img_url:
             auto.img_url = request.form['new_img_url']
+        if new_img_url_2:
+            auto.img_url_2 = request.form['new_img_url2']
+        if new_img_url_3:
+            auto.img_url_3 = request.form['new_img_url3']
+        if new_img_url_4:
+            auto.img_url_4 = request.form['new_img_url4']
         db.session.commit() 
 
     
@@ -126,6 +134,9 @@ def auto_detail(auto_id):
         'price': auto.autprice,
         'description': auto.description,
         'img_url': auto.img_url,
+        'img_url_2': auto.img_url_2,
+        'img_url_3': auto.img_url_3,
+        'img_url_4': auto.img_url_4,
         'status': free,
         'button_name': button_name,
         'rentlog': rentlog,
@@ -149,22 +160,22 @@ def auto_rent(auto_id):
         if new_status == False:
             free = 'занят'
             auto.aurented = datetime.now()
-            #auto.auend_of_rent = None
-            #l = auto.aurented.strftime("%Y-%m-%d-%H.%M.%S")
+            auto.date_end = None
+            total_price = 0
+            db.session.commit()
+
         elif new_status == True:
             free = 'свободен'
-            auto.auend_of_rent = datetime.now()
-            
-
+            auto.date_end = datetime.now()
+            age_seconds = (auto.date_end - auto.aurented).seconds
+            age = divmod(age_seconds, 60)
+            total_price = age[0] * auto.autprice
+            auto.atotal_time += age[0]
+            auto.total_price += total_price
+            auto.rent_count+=1
+            db.session.add(Rentlog(auto_id=auto.id, rented = auto.aurented, date_end = auto.date_end, rentprice=total_price))
+            db.session.commit()
         auto.astatus = new_status
-        auto.rent_count+=1
-        age_seconds = (auto.auend_of_rent - auto.aurented).seconds
-        age = divmod(age_seconds, 60)
-        total_price = age[0] * auto.autprice
-        auto.atotal_time += age[0]
-        auto.total_price += total_price
-
-        db.session.add(Rentlog(auto_id=auto.id, rented = auto.aurented, end_of_rent = auto.auend_of_rent, rentprice=total_price))
         db.session.commit()
 
     context = {
@@ -173,8 +184,7 @@ def auto_rent(auto_id):
         'status': free,
         'auto_status': auto.astatus,
         'arented': auto.arented,
-        'aend_of_rent': auto.aend_of_rent,
-        'time': auto.arented,
+       
     }
 
     return render_template('rent_auto.html', **context)
@@ -197,7 +207,7 @@ def del_auto(auto_id):
         'transmission': auto.transmission,
         'id': auto.id,
         'arented': auto.aurented,
-        'aend_of_rent': auto.auend_of_rent,
+        #'aend_of_rent': auto.data_end,
         }
     
     db.session.delete(auto)

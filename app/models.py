@@ -15,6 +15,9 @@ class Auto(db.Model):
     status = db.Column(db.Boolean)
     astatus = db.Column(db.Boolean)
     img_url = db.Column(db.String(128))
+    img_url2 = db.Column(db.String(128))
+    img_url3 = db.Column(db.String(128))
+    img_url4 = db.Column(db.String(128))
     rented = db.Column(db.DateTime, default=datetime.now)
     end_of_rent = db.Column(db.DateTime, default=datetime.now)
     rented = db.Column(db.DateTime)
@@ -29,6 +32,10 @@ class Auto(db.Model):
     total_time = db.Column(db.DateTime)
     atotal_time = db.Column(db.Integer)
     rent_count = db.Column(db.Integer)
+    date_end = db.Column(db.DateTime, default=datetime.now, nullable = True)
+    img_url_2 = db.Column(db.String(128))
+    img_url_3 = db.Column(db.String(128))
+    img_url_4 = db.Column(db.String(128))
 
 
 
@@ -37,4 +44,5 @@ class Rentlog(db.Model):
     auto_id = db.Column(db.Integer)
     rented = db.Column(db.DateTime, default=datetime.now)
     end_of_rent = db.Column(db.DateTime, default=datetime.now)
+    date_end = db.Column(db.DateTime, default=datetime.now, nullable = True)
     rentprice = db.Column(db.Float)

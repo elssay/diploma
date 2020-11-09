@@ -264,9 +264,24 @@
                                                                                 value= "option2"> НЕТ
                                                                         </label>
                                                                     </div>
-                                                                        <label>Img:</label>
-                                                                            <input type="text" name="img_url">
-                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">Изображение 1:</label>
+                                                                <input type="text" name="img_url">
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">Изображение 2:</label>
+                                                                <input type="text" name="img_url2">       
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">Изображение 3:</label>
+                                                                <input type="text" name="img_url3">       
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">Изображение 4:</label>
+                                                                <input type="text" name="img_url4">       
+                                                        </div>              
                                                                     <span class="messages"></span>
                                                                 </div>
                                                             </div>
@@ -278,15 +293,7 @@
                                                                 </div>
                                                             </div>
                                                         </form>
-                                                        {% if title %}
-                                                            <p>Название товара: {{ title }}</p>
-                                                        {% endif %}
-                                                        {% if price %}
-                                                            <p>Стоимость: {{ price }}</p>
-                                                        {% endif %}
-                                                        {% if description %}
-                                                            <p>Описание: {{ description }}</p>
-                                                        {% endif %}
+                                                        
                                                         
                                                     </div>
                                                 </div>

@@ -230,22 +230,22 @@
                                                                         <div id="big_banner">
                                                                             <div class="port_big_img">
                                                                                 <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/auto1_1.jpg"
+                                                                                    src="/assets/images/auto/{{ img_url }}"
                                                                                     alt="Big_ Details">
                                                                             </div>
                                                                             <div class="port_big_img">
                                                                                 <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/auto1_2.jpg"
+                                                                                    src="/assets/images/auto/{{ img_url_2 }}"
                                                                                     alt="Big_ Details">
                                                                             </div>
                                                                             <div class="port_big_img">
                                                                                 <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/auto1_3.jpg"
+                                                                                    src="/assets/images/auto/{{ img_url_3 }}"
                                                                                     alt="Big_ Details">
                                                                             </div>
                                                                             <div class="port_big_img">
                                                                                 <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/auto1_4.jpg"
+                                                                                    src="/assets/images/auto/{{ img_url_4 }}"
                                                                                     alt="Big_ Details">
                                                                             </div>
                                                                         </div>
@@ -254,22 +254,22 @@
                                                                         <div id="small_banner">
                                                                             <div>
                                                                                 <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/auto1_1.jpg"
+                                                                                    src="/assets/images/auto/{{ img_url }}"
                                                                                     alt="small-details">
                                                                             </div>
                                                                             <div>
                                                                                 <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/auto1_2.jpg"
+                                                                                    src="/assets/images/auto/{{ img_url_2 }}"
                                                                                     alt="small-details">
                                                                             </div>
                                                                             <div>
                                                                                 <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/auto1_3.jpg"
+                                                                                    src="/assets/images/auto/{{ img_url_3 }}"
                                                                                     alt="small-details">
                                                                             </div>
                                                                             <div>
                                                                                 <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/auto1_4.jpg"
+                                                                                    src="/assets/images/auto/{{ img_url_4 }}"
                                                                                     alt="small-details">
                                                                             </div>
                                                                         </div>
@@ -321,16 +321,6 @@
                                                                         </div>
                                                                         <div
                                                                             class="col-lg-12 col-sm-12 mob-product-btn">
-                                                                            <form action="/rent_auto/{{ id }}" method="post"
-                                                                                class="d-inline-block">
-                                                                                <button type="submit"
-                                                                                    class="btn btn-success waves-effect waves-light m-r-20">
-                                                                                    <i
-                                                                                        class="icofont icofont-cart-alt f-16"></i>
-                                                                                    <span
-                                                                                        class="m-l-10">{{ button_name }}</span>
-                                                                                    </button>
-                                                                            </form>
                                                                             <form action="/auto_detail/{{ id }}" method="post"
                                                                                 class="d-inline-block">
                                                                                 <div class="form-group">
@@ -340,18 +330,37 @@
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <label for="exampleInputCost">Новая стоимость:</label>
-                                                                                    <input type="number" class="form-control" id="exampleInputCost" name="new_price">
+                                                                                    <input type="text" class="form-control" id="exampleInputCost" name="new_price">
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <label for="exampleImg">Новое описание:</label>
                                                                                     <input type="text" class="form-control" id="exampleDescription" aria-describedby="ImgHelp"
                                                                                         name="new_description">
                                                                                 </div>
-                                                                                <div class="row">
-                                                                                    <label class="col-sm-2 col-form-label">Автоматическая
-                                                                                        КПП</label>
-                                                                                    <div class="col-sm-10">
-                                                                                        <div class="form-check form-check-inline">
+                                                                                <div class="form-group">
+                                                                                    <label for="exampleImg">Новое изображение 1:</label>
+                                                                                    <input type="text" class="form-control" id="exampleImg" aria-describedby="ImgHelp"
+                                                                                        name="new_img_url">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="exampleImg">Новое изображение 2:</label>
+                                                                                    <input type="text" class="form-control" id="exampleImg" aria-describedby="ImgHelp"
+                                                                                        name="new_img_url2">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="exampleImg">Новое изображение 3:</label>
+                                                                                    <input type="text" class="form-control" id="exampleImg" aria-describedby="ImgHelp"
+                                                                                        name="new_img_url3">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="exampleImg">Новое изображение 4:</label>
+                                                                                    <input type="text" class="form-control" id="exampleImg" aria-describedby="ImgHelp"
+                                                                                        name="new_img_url4">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="col-sm-2 col-form-label">Автоматическая КПП:</label>
+                                                                                        <div class="col-sm-10">
+                                                                                            <div class="form-check form-check-inline">
                                                                                             <label class="form-check-label">
                                                                                                 <input class="form-check-input" type="radio"
                                                                                                     name="new_transmission" id="new_transmission-1"
@@ -364,19 +373,29 @@
                                                                                                     name="new_transmission" id="neW_transmission-2"
                                                                                                     value= "option2"> НЕТ
                                                                                             </label>
-                                                                                        </div>    
+                                                                                        </div>
+                                                                                    </div>        
                                                                                 </div>
-                                                                                <div class="form-group">
-                                                                                    <label for="exampleImg">Новые изображения:</label>
-                                                                                    <input type="text" class="form-control" id="exampleImg" aria-describedby="ImgHelp"
-                                                                                        name="new_img_url">
-                                                                                </div>
-                                                                                <button type="submit"
+                                                                                
+                                                                                <div
+                                                                                    class="col-lg-12 col-sm-12 mob-product-btn">
+                                                                                    <form action="/rent_auto/{{ id }}" method="post"
+                                                                                    class="d-inline-block">
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-success waves-effect waves-light m-r-20">
+                                                                                    <i
+                                                                                        class="icofont icofont-cart-alt f-16"></i>
+                                                                                    <span
+                                                                                        class="m-l-10">{{ button_name }}</span>
+                                                                                    </button>
+                                                                                    </form>
+                                                                                    <button type="submit"
                                                                                     class="btn btn-outline-primary waves-effect waves-light m-r-20">
                                                                                     <i
                                                                                         class="icofont icofont-edit f-16"></i>
                                                                                     <span class="m-l-10">Изменить</span>
-                                                                                </button>
+                                                                                    </button>
+                                                                                </div>
                                                                             </form>
                                                                             <form action="/del_auto/{{ id }}" method="post"
                                                                                 class="d-inline-block">
@@ -387,7 +406,6 @@
                                                                                     <span class="m-l-10">Удалить</span>
                                                                                 </button>
                                                                             </form>
-                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -395,7 +413,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
 
@@ -418,7 +435,7 @@
                                                         <table class="table table-hover">
                                                             <thead>
                                                                 <tr>
-                                                                    <th scope="col"># бронирования</th>
+                                                                    <th scope="col">№ бронирования</th>
                                                                     <th scope="col">Начало аренды</th>
                                                                     <th scope="col">Окончание аренды</th>
                                                                     <th scope="col">Общая стоимость аренды</th>
@@ -429,8 +446,8 @@
                                                                 {% for rent in rentlog %}
                                                                 <tr>
                                                                     <th scope="row">{{ rent.id }}</th>
-                                                                    <td>{{ rent.rented }}</td>
-                                                                    <td>{{ rent.end_of_rent }}</td>
+                                                                    <td>{{ rent.rented.strftime("%Y-%m-%d-%H.%M.%S") }}</td>
+                                                                    <td>{{ rent.date_end.strftime("%Y-%m-%d-%H.%M.%S") }}</td>
                                                                     <td>{{ rent.rentprice }} p</td>
                                                                 </tr>
                                                                 {% endfor %}

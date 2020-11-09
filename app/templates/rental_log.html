@@ -244,17 +244,17 @@
                                                                             {% for auto in auto_list %}
                                                                             <tr>
                                                                                 <td class="pro-list-img">
-                                                                                    <img src="/assets/images/auto/auto1_1.jpg"
+                                                                                    <img src="/assets/images/auto/{{ auto.img_url }}"
                                                                                         class="img-fluid" alt="tbl"
                                                                                         style="max-width: 64px;">
                                                                                 </td>
                                                                                 <td class="pro-name">
-                                                                                    <h6>{{ auto.image }}</h6>
+                                                                                    <h6>{{ a }}</h6>
                                                                                     <span>{{ auto.title }}</span>
                                                                                 </td>
                                                                                 <td>{{ auto.rent_count }}</td>
-                                                                                <td>{{ auto.atotal_time }}</td>
-                                                                                <td>{{ auto.total_price }}</td>  
+                                                                                <td>{{ auto.atotal_time }} мин</td>
+                                                                                <td>{{ auto.total_price }} р</td>  
                                                                             </tr>
                                                                             {% endfor %}
                                                                         </tbody>

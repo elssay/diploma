@@ -193,36 +193,6 @@
                                             <h5 class="m-b-10">Список автомобилей</h5>
                                             <div class="tab-content">
                                                 <div class="tab-pane fade show active" id="tab_columns_02">
-                                                    <div class="row">
-                                                        {% for auto in auto_list %}
-                                                        <div class="col-lg-3 col-md-4 col-sm-6">
-                                                            <!-- Single Product Item Start -->
-                                                            <div class="single-auto-item text-center">
-                                                                <div class="auto-images">
-                                                                    <a href="#" class="auto-thumbnail">
-                                                                        <img src="/assets/images/auto/{{ auto.img_url }}" class="img-fluid" alt="Auto Images">
-                                                                    </a>
-                                                                    <div class="auto-actions">
-                                                                        <a href="/auto_detail/{{ auto.id }}"><i class="material-icons"></i> <span class="tool-tip">Подробнее</span></a>
-                                                                        <a href="/rent_auto/{{ auto.id }}"><i class="material-icons"></i> <span class="tool-tip">Арендовать</span></a>
-                                      
-                                                                    </div>
-                                                                </div>
-                                                                <div class="auto-content">
-                                                                    <h6 class="auto-title"><a href="/auto_detail/{{ auto.id }}">{{ auto.title }}</a></h6>
-                                                                    <div class="auto-price">
-                                                                        <span class="new-price">{{ auto.price }} p/мин</span>
-                                                                        <div class="auto-description">
-                                                                        <span class="new-descriprion">{{ auto.description }} </span>
-                                                                        </div>
-                                                                        <div class="auto-transmission">
-                                                                            <span class="new-transmission">{{ auto.transmission }} </span>
-                                                                            </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div><!-- Single Product Item End -->
-                                                        </div>
-                                                        {% endfor %}
                                             <p class="m-b-0">Выбери любой и катайся с поминутной оплатой</p>
                                         </div>
                                     </div>
@@ -231,21 +201,26 @@
                                             <li class="breadcrumb-item">
                                                 <a href="/"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Главная</a>
+                                            <li class="breadcrumb-item"><a href="/">Главная</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="pcoded-inner-content">
+                            
+                            
                             <div class="main-body">
+                                
                                 <div class="page-wrapper">
+                                    
 
                                     <div class="page-body">
-
+                                        
                                         <div class="row">
+                                            {% for auto in auto_list %}
                                             <div class="col-xl-4 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="card prod-view">
                                                     <div class="prod-item text-center">
@@ -264,31 +239,34 @@
                                                                     <i class="icofont icofont-heart-alt f-20"></i>
                                                                 </button>
                                                             </div>
-                                                            <a href="#!" class="hvr-shrink">
-                                                                <img src="/assets/images/auto/auto1_1.jpg"
+                                                            
+                                                            <a href="/auto_detail/{{ auto.id }}" class="hvr-shrink">
+                                                                <img src="/assets/images/auto/{{ auto.img_url }}"
                                                                     class="img-fluid o-hidden" alt="auto1.jpg">
                                                             </a>
-                                                            <div class="p-new"><a href=""> New </a></div>
-                                                        </div>
+                                                            <div class="p-new"><a href="/auto_detail/{{ auto.id }}"> Подробнее </a></div>
                                                         <div class="prod-info">
-                                                            <a href="#!" class="txt-muted">
-                                                                <h4>{{ name_auto }}</h4>
-                                                            </a>
-                                                            <span class="prod-price">{{ rent_price }} р/мин</span>
+                                                            <a href="/auto_detail/{{ auto.id }}" class="txt-muted">
+                                                                <h4>{{ auto.title }}</h4>
+                                                            <span class="pcoded-mcaret">{{ auto.autprice }} р/мин</span>
+                                                                
                                                         </div>
                                                     </div>
                                                 </div>
+                                            
                                             </div>
                                         </div>
-
+                                    {% endfor %}
                                     </div>
 
                                 </div>
+                            
                             </div>
                         </div>
+                        
                     </div>
 
-
+                    
                 </div>
             </div>
         </div>
